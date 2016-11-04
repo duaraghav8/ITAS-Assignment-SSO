@@ -1,0 +1,32 @@
+{
+  "name": "itas_assignment_sso",
+  "version": "1.0.0",
+  "description": "ITAS Assignment - Single Sign On demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duaraghav8/ITAS-Assignment-SSO.git"
+  },
+  "keywords": [
+    "Authentication",
+    "JWT",
+    "Single",
+    "Sign",
+    "On"
+  ],
+  "author": "Raghav Dua",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/duaraghav8/ITAS-Assignment-SSO/issues"
+  },
+  "homepage": "https://github.com/duaraghav8/ITAS-Assignment-SSO#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.6"
+  }
+}
