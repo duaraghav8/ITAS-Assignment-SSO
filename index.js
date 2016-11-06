@@ -11,6 +11,7 @@ const express = require ('express'),
 
 	serveStatic = require ('serve-static'),
 	bodyParser = require ('body-parser'),
+	cookieParser = require ('cookie-parser'),
 
 	fs = require ('fs'),
 	path = require ('path');
@@ -29,7 +30,25 @@ const middleware = {
 	},
 
 	signin: (req, res, next) => {
+		if (req.cookies && req.cookies.auth_token) {
+			let userObject;
+
+			try {
+				userObject = jwt.verify (req.cookies.auth_token, credentials.jwtSecret);
+			} catch (e) {
+				console.log (
+					'Exception occured while trying to verify JWT: ', e.stack ()
+				);
+			}
+
+			return res.send ('You are already logged in <b>' + userObject.username + '</b>!');
+		}
+
 		res.render ('signin');
+	},
+
+	signout: (req, res, next) => {
+		res.clearCookie ('auth_token').sendStatus (200);
 	},
 
 	authenticate: (req, res, next) => {
@@ -39,9 +58,14 @@ const middleware = {
 			return res.sendStatus (401);
 		}
 
-		res.status (200).json ({
+		/*res.status (200).json ({
 			token: jwt.sign ({username, via: 'auth.server.central'}, credentials.jwtSecret)
-		});
+		});*/
+
+		res.cookie (
+			'auth_token',
+			jwt.sign ({username, via: 'auth.server.central'}, credentials.jwtSecret)
+		);
 	}
 
 };
@@ -63,6 +87,7 @@ app
 
 	.use (bodyParser.json ())
 	.use (bodyParser.urlencoded ({extended: true}))
+	.use (cookieParser ())
 
 	.get ('/', middleware.home)
 	.get ('/signin', middleware.signin)
