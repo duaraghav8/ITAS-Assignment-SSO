@@ -1,4 +1,7 @@
 # ITAS-Assignment-SSO
+
+##PLEASE IGNORE THIS REPO, IF YOU LOOK AT IT YOU WILL JUDGE ME :-(
+
 IT App. Security Assignment - Single Sign On Demo
 
 Question:
